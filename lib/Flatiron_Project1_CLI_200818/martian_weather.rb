@@ -13,9 +13,7 @@ class MartianWeather
     @@api_data = JSON.parse(response, symbolize_names: true)
 
     @@all = []
-    # @@Martian_data = {}
 
-    
     def initialize
     end
 
@@ -23,6 +21,7 @@ class MartianWeather
         @@api_data.each do |s| 
             o = self.new
             o.sol = s[0].to_s
+            # binding.pry
             o.date = s[1][:Last_UTC].split("T").first
             o.season = s[1][:Season]
             o.avgtemp = s[1][:AT][:av]
@@ -33,19 +32,20 @@ class MartianWeather
             o.lowws = s[1][:HWS][:mn]
             o.winddirection = s[1][:WD][:most_common][:compass_point]
             o.save
-            binding.pry
-            
         end
+        binding.pry
     end
+
 
     def save
         @@all << self
     end
 
-    def sort
-        @@all.sort_by[:sol]
-    end
+    # def sort
+    #     @@all.sort_by[:sol]
+    # end
 
 end
 
 MartianWeather.create_instances
+

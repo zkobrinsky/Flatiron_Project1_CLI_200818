@@ -1,0 +1,19 @@
+
+[1mFrom:[0m /mnt/c/Users/Zach/dev/flatiron/labs/Flatiron_Project1_CLI_200818/lib/Flatiron_Project1_CLI_200818/latlong_creator.rb @ line 18 LatLongCreator.create_latlong_from_zip:
+
+    [1;34m13[0m: [32mdef[0m [1;36mself[0m.[1;34mcreate_latlong_from_zip[0m(zip)
+    [1;34m14[0m:     @zip = zip
+    [1;34m15[0m:     url = [31m[1;31m"[0m[31mhttps://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=#{@zip}[0m[31m&facet=state&facet=timezone&facet=dst[1;31m"[0m[31m[0m
+    [1;34m16[0m:     uri = URI(url)
+    [1;34m17[0m:     response = [1;34;4mNet[0m::[1;34;4mHTTP[0m.get(uri)
+ => [1;34m18[0m:     binding.pry
+    [1;34m19[0m:     [36m@@api_data[0m = [1;34;4mJSON[0m.parse(response, [35msymbolize_names[0m: [1;36mtrue[0m)
+    [1;34m20[0m:     [1;34m# unless @@api_data == nil[0m
+    [1;34m21[0m:         @latitude = [36m@@api_data[0m[[33m:records[0m].first[[33m:fields[0m][[33m:latitude[0m]
+    [1;34m22[0m:         @longitude = [36m@@api_data[0m[[33m:records[0m].first[[33m:fields[0m][[33m:longitude[0m]
+    [1;34m23[0m:         @city = [36m@@api_data[0m[[33m:records[0m].first[[33m:fields[0m][[33m:city[0m]
+    [1;34m24[0m:         @state = [36m@@api_data[0m[[33m:records[0m].first[[33m:fields[0m][[33m:state[0m]
+    [1;34m25[0m:     [1;34m# end[0m
+    [1;34m26[0m:     binding.pry
+    [1;34m27[0m: [32mend[0m
+
