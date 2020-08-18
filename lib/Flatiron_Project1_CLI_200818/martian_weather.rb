@@ -1,5 +1,5 @@
 # require "pry"
 
 class MartianWeather
-    # binding.pry
+    puts "I'm Martian Weather class"
 end

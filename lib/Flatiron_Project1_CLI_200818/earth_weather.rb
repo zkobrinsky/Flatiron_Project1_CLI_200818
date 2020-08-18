@@ -1,0 +1,3 @@
+class EarthWeather
+    
+end

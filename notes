@@ -1,0 +1,28 @@
+git status
+git add .
+git commit -m ""
+git push origin master
+
+
+chmod +x run -
+
+
+User Story:
+
+Max is having a bad day. His friends keep telling him to try and focus on the positive, but he just can’t seem to do it. The Martian Weather Service is here to help.
+
+What’s weather like on Mars? How does it compare to the weather where you are? By inputting your zip code, you can get an accurate comparison of what your day is like here on Earth versus what your day would be like on Mars. 
+
+Max starts the Martian Weather Service app and enters his zip code. 
+
+It tells him his current weather, and also tells him the difference between his weather and the weather in Elysium Planitia, Mars. Guess what! Max’s day would be so, so much worse on Mars. So cheer up!
+
+From there, Max can enter a different zip code to compare to Mars, or he can compare the last week of weather data (Spoiler: the entire last week was also much, much worse on Mars). He can also change his Martian/Earth weather preferences, i.e. Celsius vs. Fahrenheit or Kelvin, Sols vs Earth days, kph wind speed vs mph, etc. Or he can exit the app.
+
+
+
+Day class (source of truth)
+MartianWeather class
+EarthWeather Class
+LatLongCreator method
+CLI Class
