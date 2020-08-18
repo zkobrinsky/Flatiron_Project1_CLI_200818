@@ -5,7 +5,9 @@ require "./lib/Flatiron_Project1_CLI_200818/martian_weather"
 
 
 require "date"
-# require "pry"
+require "pry"
+require "net/http"
+require "json"
 
 module FlatironProject1CLI200818
   class Error < StandardError; end
