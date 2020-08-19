@@ -6,10 +6,6 @@ class LatLongCreator
 
     attr_accessor :zip, :latitude, :longitude, :city, :state
 
-    
-
-
-
     def self.create_latlong_from_zip(zip)
         @zip = zip
         url = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=#{@zip}&facet=state&facet=timezone&facet=dst"
@@ -22,14 +18,9 @@ class LatLongCreator
             @city = @@api_data[:records].first[:fields][:city]
             @state = @@api_data[:records].first[:fields][:state]
             latlong = [@latitude, @longitude, @city, @state]
-            
-            # binding.pry
-        else
         end
-        # binding.pry
     end
-
 end
 
-LatLongCreator.create_latlong_from_zip(58104)
-binding.pry
+# LatLongCreator.create_latlong_from_zip(58104)
+# binding.pry
