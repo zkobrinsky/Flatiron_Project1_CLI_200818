@@ -5,7 +5,7 @@ require "json"
 
 
 class MartianWeather
-    attr_accessor :sol, :date, :season, :avgtemp, :hightemp, :lowtemp, :avgws, :highws, :lowws, :winddirection
+    attr_accessor :sol, :date, :season, :avgtemp, :hightemp, :lowtemp, :avgws, :highws, :lowws, :winddir
 
     url = "https://api.nasa.gov/insight_weather/?api_key=dbgntr9dVwt1ol3Wdw5D8d7BTdEk5d208LElZEkA&feedtype=json&ver=1.0"
     uri = URI(url)
@@ -31,7 +31,7 @@ class MartianWeather
                     o.avgws = s[1][:HWS][:av]
                     o.highws = s[1][:HWS][:mx]
                     o.lowws = s[1][:HWS][:mn]
-                    o.winddirection = s[1][:WD][:most_common][:compass_point]
+                    o.winddir = s[1][:WD][:most_common][:compass_point]
                     o.save
                 end
             end

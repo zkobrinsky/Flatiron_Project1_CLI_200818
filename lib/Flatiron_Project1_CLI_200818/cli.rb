@@ -2,15 +2,25 @@ require "pry"
 require "net/http"
 require "json"
 require_relative "./latlong_creator"
+require_relative "./martian_weather"
+require_relative "./earth_weather"
 
 class CLI
 
     attr_reader :lat, :long, :city, :state, :zip
     
     def initialize
+        start
+        binding.pry
+    end
+
+    def start
+        MartianWeather.create_instances
         welcome
         get_valid_zip
-        EarthWeather.new(@lat, @long)
+        EarthWeather.create_instances(@lat, @long, @city, @state)
+
+
     end
 
 
