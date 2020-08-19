@@ -15,22 +15,20 @@ class CLI
     end
 
     def start
-        MartianWeather.create_instances
         welcome
         get_valid_zip
         EarthWeather.create_instances(@lat, @long, @city, @state)
-
-
+        MartianWeather.create_instances
     end
 
 
     def welcome
         puts "Welcome to the Martian Weather Service."
-        5.times {loading}
+        5.times {loading_dots}
         print "\n"
     end
 
-    def loading
+    def loading_dots
         sleep(0.3)
         print "." 
     end
@@ -51,20 +49,12 @@ class CLI
     def get_valid_zip
         puts "Please enter your zip code."
         input = gets.chomp.to_i
-        # binding.pry
         until get_latlong(input) != nil && input.to_s.length == 5
             puts "Please enter a valid U.S. zip code."
             input = gets.chomp.to_i
         end
-        # puts "latitude: #{@lat}, longitude: #{@long}, city: #{@city}, state: #{@state}"
     end
 
 end
-
-
-
-
-
-
 
 CLI.new

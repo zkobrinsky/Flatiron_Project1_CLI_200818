@@ -3,6 +3,11 @@ git add .
 git commit -am ""
 git push origin master
 
+Units:
+hPa
+F
+mph
+
 
 chmod +x run -
 

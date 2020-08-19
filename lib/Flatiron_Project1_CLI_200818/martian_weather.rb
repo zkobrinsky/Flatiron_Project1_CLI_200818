@@ -5,7 +5,7 @@ require "json"
 
 
 class MartianWeather
-    attr_accessor :sol, :date, :season, :avgtemp, :hightemp, :lowtemp, :avgws, :highws, :lowws, :winddir
+    attr_accessor :sol, :date, :season, :avgtemp, :hightemp, :lowtemp, :avgws, :highws, :lowws, :winddir, :pres
 
     url = "https://api.nasa.gov/insight_weather/?api_key=dbgntr9dVwt1ol3Wdw5D8d7BTdEk5d208LElZEkA&feedtype=json&ver=1.0"
     uri = URI(url)
@@ -25,13 +25,14 @@ class MartianWeather
                     o.sol = s[0].to_s
                     o.date = s[1][:Last_UTC].split("T").first
                     o.season = s[1][:Season]
-                    o.avgtemp = s[1][:AT][:av]
-                    o.hightemp = s[1][:AT][:mx]
-                    o.lowtemp = s[1][:AT][:mn]
-                    o.avgws = s[1][:HWS][:av]
-                    o.highws = s[1][:HWS][:mx]
-                    o.lowws = s[1][:HWS][:mn]
+                    o.avgtemp = o.c_to_f(s[1][:AT][:av]).round(2)
+                    o.hightemp = o.c_to_f(s[1][:AT][:mx]).round(2)
+                    o.lowtemp = o.c_to_f(s[1][:AT][:mn]).round(2)
+                    o.avgws = o.mps_to_mph(s[1][:HWS][:av]).round(2)
+                    o.highws = o.mps_to_mph(s[1][:HWS][:mx]).round(2)
+                    o.lowws = o.mps_to_mph(s[1][:HWS][:mn]).round(2)
                     o.winddir = s[1][:WD][:most_common][:compass_point]
+                    o.pres = o.pa_to_hpa(s[1][:PRE][:av]).round(2)
                     o.save
                 end
             end
@@ -48,6 +49,18 @@ class MartianWeather
 
     def self.all
         @@all
+    end
+
+    def pa_to_hpa(pa)
+        pa/100
+    end
+
+    def c_to_f(c)
+        (c*9/5)+32
+    end
+
+    def mps_to_mph(m)
+        m*2.237
     end
 
 
