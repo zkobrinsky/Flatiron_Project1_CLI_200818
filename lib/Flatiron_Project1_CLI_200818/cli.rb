@@ -14,7 +14,7 @@ class CLI
     end
 
     def start
-        welcome
+        # welcome
         get_valid_zip
         EarthWeather.create_instances(@lat, @long, @city, @state)
         MartianWeather.create_instances
@@ -28,33 +28,39 @@ class CLI
         pres = EarthWeather.all.first.pres
         winsped = EarthWeather.all.first.avgws
         city = EarthWeather.all.first.city
-        mars_avgtemp = EarthWeather.all.first.avgtemp
-        mars_hitemp = EarthWeather.all.first.hightemp
-        mars_lotemp = EarthWeather.all.first.lowtemp
-        mars_winddir = EarthWeather.all.first.winddir
-        mars_pres = EarthWeather.all.first.pres
-        mars_winsped = EarthWeather.all.first.avgws
+        mars_avgtemp = MartianWeather.all.first.avgtemp
+        mars_hitemp = MartianWeather.all.first.hightemp
+        mars_lotemp = MartianWeather.all.first.lowtemp
+        mars_winddir = MartianWeather.all.first.winddir
+        mars_pres = MartianWeather.all.first.pres
+        mars_winsped = MartianWeather.all.first.avgws
         
 
         puts "It is #{temp}°F with #{status} in your beautiful city of #{city}."
-        sleep(1)
         puts "The wind is #{winsped}mph from the #{winddir}, with a lovely atmospheric pressure of #{pres} hPa."
-        sleep(5)
+        sleep(7)
+        print "\n"
+        print "\n"
         puts "On Mars it is #{mars_avgtemp}°F with a high of #{mars_hitemp}°F and a low of #{mars_lotemp}°F."
-        sleep(1)
         puts "The wind is #{mars_winsped}mph from the #{mars_winddir}, with an atmospheric pressure of #{mars_pres} hPa."
-        sleep(5)
+        print "\n"
+        print "\n"
+        sleep(7)
         puts "It is cold."
         sleep(1)
         puts "It is desolate."
         sleep(1)
         puts "It is lonely."
-        sleep(1)
+        sleep(0.5)
+        print "\n"
         5.times {loading_dots}
         print "\n"
+        print "\n"
         puts "Where you are is beautiful."
-        sleep(0.5)
-        "Cheer up."
+        print "\n"
+        sleep(2)
+        puts "Cheer up."
+        sleep(5)
         
        
         
