@@ -21,6 +21,3 @@ class LatLongCreator
         end
     end
 end
-
-# LatLongCreator.create_latlong_from_zip(58104)
-# binding.pry

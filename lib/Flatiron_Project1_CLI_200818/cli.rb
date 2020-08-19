@@ -11,7 +11,6 @@ class CLI
     
     def initialize
         start
-        binding.pry
     end
 
     def start
@@ -19,13 +18,73 @@ class CLI
         get_valid_zip
         EarthWeather.create_instances(@lat, @long, @city, @state)
         MartianWeather.create_instances
+        compare_current_weather
+    end
+
+    def compare_current_weather
+        temp = EarthWeather.all.first.avgtemp
+        status = EarthWeather.all.first.status
+        winddir = EarthWeather.all.first.winddir
+        pres = EarthWeather.all.first.pres
+        winsped = EarthWeather.all.first.avgws
+        city = EarthWeather.all.first.city
+        mars_avgtemp = EarthWeather.all.first.avgtemp
+        mars_hitemp = EarthWeather.all.first.hightemp
+        mars_lotemp = EarthWeather.all.first.lowtemp
+        mars_winddir = EarthWeather.all.first.winddir
+        mars_pres = EarthWeather.all.first.pres
+        mars_winsped = EarthWeather.all.first.avgws
+        
+
+        puts "It is #{temp}°F with #{status} in your beautiful city of #{city}."
+        sleep(1)
+        puts "The wind is #{winsped}mph from the #{winddir}, with a lovely atmospheric pressure of #{pres} hPa."
+        sleep(5)
+        puts "On Mars it is #{mars_avgtemp}°F with a high of #{mars_hitemp}°F and a low of #{mars_lotemp}°F."
+        sleep(1)
+        puts "The wind is #{mars_winsped}mph from the #{mars_winddir}, with an atmospheric pressure of #{mars_pres} hPa."
+        sleep(5)
+        puts "It is cold."
+        sleep(1)
+        puts "It is desolate."
+        sleep(1)
+        puts "It is lonely."
+        sleep(1)
+        5.times {loading_dots}
+        print "\n"
+        puts "Where you are is beautiful."
+        sleep(0.5)
+        "Cheer up."
+        
+       
+        
+        # binding.pry
     end
 
 
     def welcome
         puts "Welcome to the Martian Weather Service."
+        sleep(0.6)
         5.times {loading_dots}
+        sleep(0.3)
+        print "Preparing quantum confibulators."
+        sleep(0.8)
         print "\n"
+        5.times {loading_dots}
+        sleep(0.3)
+        print "Charging atomic capacitors."
+        sleep(1)
+        print "\n"
+        5.times {loading_dots}
+        sleep(0.3)
+        print "Transmitting to Mars."
+        sleep(0.9)
+        print "\n"
+        5.times {loading_dots}
+        sleep(0.3)
+        print "Extraterrestrial transmission received."
+        print "\n"
+        sleep(1)
     end
 
     def loading_dots

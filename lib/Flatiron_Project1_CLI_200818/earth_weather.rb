@@ -34,9 +34,10 @@ class EarthWeather
         @@all = [] #only storing one zip at a time, clears all
         i = 0
         6.times do
-            time = (Time.now - (86400*i)).to_i
+            time = (Time.now - (86400*i)).to_i #converts to unix
             o = self.new
             url = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=#{lat}&lon=#{long}&units=imperial&dt=#{time}&appid=3ef2f9e27db06e5523669088cdd44570"
+            #api call defaults units to imperial
             o.get_data(url)
             o.date = Time.at(@@api_data[:current][:dt]).to_s.split(" ").first
             o.season = o.get_season(Time.at(@@api_data[:current][:dt]))
