@@ -41,10 +41,31 @@ class CLI
         case input
             when 1
                 diff_zip
+            when 2
+                martian_forecast
+            when 3
+                earth_forecast
             when 8
             else
                 puts "just a test"
         end
+    end
+
+    def earth_forecast
+
+    end
+
+    def martian_forecast
+        print "\n"
+        MartianWeather.forecast.each.with_index(1) do |d|
+            puts "Sol: #{d.sol}, Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
+            puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
+            puts "Season: #{d.season}, Status: cold and desolate."
+            puts "-----------"
+        end
+        print "\n"
+        sleep(5)
+        main_menu
     end
 
     def diff_zip

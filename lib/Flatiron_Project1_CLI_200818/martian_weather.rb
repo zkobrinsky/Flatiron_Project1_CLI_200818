@@ -46,6 +46,11 @@ class MartianWeather
 
     def self.get_current_sol
         today_sol = @@all.last.sol.to_i + (Time.now.yday - Time.parse(@@all.last.date).yday) + 1
+        if today_sol > 668
+            today_sol = (Time.now.yday - Time.parse(@@all.last.date).yday)
+        else
+            today_sol
+        end
     end
 
     def self.create_forecast
@@ -57,7 +62,7 @@ class MartianWeather
             o = self.new
             o.sol = (get_current_sol+i).to_s
             o.date = (Time.now+86400*i).to_s.split(" ").first
-            o.season = EarthWeather.new.get_season(Time.parse(o.date))
+            o.season = @@all.last.season
             o.avgtemp = d.avgtemp+(rand(-10..10))
             o.hightemp = d.hightemp+(rand(-10..10))
             o.lowtemp = d.lowtemp+(rand(-10..10))
@@ -65,10 +70,9 @@ class MartianWeather
             o.highws = d.highws+(rand(-10..10))
             o.lowws = d.lowws+(rand(-10..10))
             o.winddir = directions[rand(0..directions.length)]
-            o.pres = d.pres+(rand(-10..10))
+            o.pres = (d.pres+(rand(-10..10))).round(2)
             @@forecast << o
         end
-        binding.pry
     end
 
 #     [10] pry(MartianWeather)> Time.now.yday
