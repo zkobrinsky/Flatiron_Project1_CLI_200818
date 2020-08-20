@@ -26,15 +26,16 @@ class EarthWeather
     def get_data(url)
         uri = URI(url)
         response = Net::HTTP.get(uri)
+        # binding.pry
         @@api_data = JSON.parse(response, symbolize_names: true)
-        Time.at(@@api_data[:current][:dt]).to_s.split(" ").first # Time.at(1335437221)  returns UTC
+        # Time.at(@@api_data[:current][:dt]).to_s.split(" ").first # Time.at(1335437221)  returns UTC
     end
 
     def self.create_instances(lat,long, city, state)
         @@all = [] #only storing one zip at a time, clears all
         i = 0
         6.times do
-            time = (Time.now - (86400*i)).to_i #converts to unix
+            time = (Time.now - (86400*i)-1000).to_i #converts to unix #-1000 to account for difference in clocks, can't be in future
             o = self.new
             url = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=#{lat}&lon=#{long}&units=imperial&dt=#{time}&appid=3ef2f9e27db06e5523669088cdd44570"
             #api call defaults units to imperial
@@ -46,9 +47,9 @@ class EarthWeather
             o.city = city
             o.state = state
             o.winddir = o.convert_wind_deg_to_dir(@@api_data[:current][:wind_deg])
-            o.avgtemp = @@api_data[:current][:temp]
+            o.avgtemp = @@api_data[:current][:temp].round()
             o.status = @@api_data[:current][:weather].first[:description]
-            o.avgws = @@api_data[:current][:wind_speed]
+            o.avgws = @@api_data[:current][:wind_speed].round()
             o.pres = @@api_data[:current][:pressure]
 
             # binding.pry

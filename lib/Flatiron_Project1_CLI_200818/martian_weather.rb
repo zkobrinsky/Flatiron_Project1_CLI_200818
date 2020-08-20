@@ -1,6 +1,10 @@
 require "pry"
 require "net/http"
 require "json"
+require "date"
+require "time"
+require_relative "./earth_weather"
+
 # require "./lib/environment"
 
 
@@ -13,6 +17,7 @@ class MartianWeather
     @@api_data = JSON.parse(response, symbolize_names: true)
 
     @@all = []
+    @@forecast = []
 
     def initialize
     end
@@ -25,12 +30,12 @@ class MartianWeather
                     o.sol = s[0].to_s
                     o.date = s[1][:Last_UTC].split("T").first
                     o.season = s[1][:Season]
-                    o.avgtemp = o.c_to_f(s[1][:AT][:av]).round(2)
-                    o.hightemp = o.c_to_f(s[1][:AT][:mx]).round(2)
-                    o.lowtemp = o.c_to_f(s[1][:AT][:mn]).round(2)
-                    o.avgws = o.mps_to_mph(s[1][:HWS][:av]).round(2)
-                    o.highws = o.mps_to_mph(s[1][:HWS][:mx]).round(2)
-                    o.lowws = o.mps_to_mph(s[1][:HWS][:mn]).round(2)
+                    o.avgtemp = o.c_to_f(s[1][:AT][:av]).round()
+                    o.hightemp = o.c_to_f(s[1][:AT][:mx]).round()
+                    o.lowtemp = o.c_to_f(s[1][:AT][:mn]).round()
+                    o.avgws = o.mps_to_mph(s[1][:HWS][:av]).round()
+                    o.highws = o.mps_to_mph(s[1][:HWS][:mx]).round()
+                    o.lowws = o.mps_to_mph(s[1][:HWS][:mn]).round()
                     o.winddir = s[1][:WD][:most_common][:compass_point]
                     o.pres = o.pa_to_hpa(s[1][:PRE][:av]).round(2)
                     o.save
@@ -38,6 +43,29 @@ class MartianWeather
             end
         end
     end
+
+    def self.get_current_sol
+        today_sol = @@all.last.sol.to_i + (Time.now.yday - Time.parse(@@all.last.date).yday) + 1
+    end
+
+    def self.create_forecast
+        #dependent on .create_instances having been called
+        @@all.each.with_index(1) do |d, i|
+            o = self.new
+            o.sol = get_current_sol+i
+            o.date = (Time.now+86400*i).to_s.split(" ").first
+            o.season = EarthWeather.new.get_season(Time.parse(o.date))
+            binding.pry
+            
+
+        end
+    end
+
+#     [10] pry(MartianWeather)> Time.now.yday
+# => 233
+# [11] pry(MartianWeather)> Time.parse("2020-08-09T21:00:49Z").yday
+# => 222
+# [12] pry(MartianWeather)> Time.now.yday-Time.parse("2020-08-09T21:00:49Z").yday
 
     def self.sort_by_date
         @@all.sort_by{|i| i.date}
@@ -49,6 +77,10 @@ class MartianWeather
 
     def self.all
         @@all
+    end
+
+    def self.forecast
+        @@forecast
     end
 
     def pa_to_hpa(pa)
@@ -67,6 +99,8 @@ class MartianWeather
 end
 
 MartianWeather.create_instances
+MartianWeather.create_forecast
+
 # binding.pry
 
 
