@@ -14,19 +14,20 @@ class CLI
     end
 
     def start
-        welcome
+        # welcome
         get_valid_zip
         EarthWeather.create_instances(@lat, @long, @city, @state)
         MartianWeather.create_instances
         MartianWeather.create_forecast
-        compare_current_weather_on_welcome
+        # compare_current_weather_on_welcome
+        main_menu
     end
 
     def main_menu
         "\n"
         puts "Please select from the following options:"
         print "\n"
-        puts "1. Compare Martian weather to a different zip code"
+        puts "1. Change zip code"
         puts "2. Martian forecast"
         puts "3. Earth forecast"
         puts "4. Martian archived weather data"
@@ -58,6 +59,27 @@ class CLI
                     current_earth
                 when 8
             end
+    end
+
+    def current_earth
+        d = EarthWeather.all.last
+        puts "Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
+            puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
+            puts "Season: #{d.season}, Status: cold and desolate."
+            print "\n"
+            sleep(2)
+            main_menu
+    end
+
+    def current_martian
+        sol = MartianWeather.get_current_sol
+        d = MartianWeather.all.last
+        puts "Sol: #{sol}, Earth date: #{Time.now.to_s.split(" ").first}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
+            puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
+            puts "Season: #{d.season}, Status: cold and desolate."
+            print "\n"
+            sleep(2)
+            main_menu
     end
 
     def earth_archive
@@ -170,7 +192,7 @@ class CLI
         puts "Cheer up."
         sleep(5)
         print "\n"
-        main_menu
+        # main_menu
     end
 
     def compare_current_weather
