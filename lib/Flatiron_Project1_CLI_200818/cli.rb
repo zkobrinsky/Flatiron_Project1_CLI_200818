@@ -14,12 +14,12 @@ class CLI
     end
 
     def start
-        welcome
+        # welcome
         get_valid_zip
         EarthWeather.create_instances(@lat, @long, @city, @state)
         MartianWeather.create_instances
         MartianWeather.create_forecast
-        compare_current_weather_on_welcome
+        # compare_current_weather_on_welcome
         main_menu
     end
 
@@ -62,11 +62,11 @@ class CLI
     end
 
     def current_earth
-        d = EarthWeather.all.last
+        d = EarthWeather.all.first
         print "\n"
-        puts "Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
+        puts "Earth date: #{d.date}, Current temp: #{d.avgtemp}°F."
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
-            puts "Season: #{d.season}, Status: cold and desolate."
+            puts "Season: #{d.season}, Status: #{d.status}."
             print "\n"
             main_menu
     end
@@ -75,7 +75,7 @@ class CLI
         sol = MartianWeather.get_current_sol
         d = MartianWeather.all.last
         print "\n"
-        puts "Sol: #{sol}, Earth date: #{Time.now.to_s.split(" ").first}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
+        puts "Sol: #{sol}, Earth date: #{Time.now.to_s.split(" ").first}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F."
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
             puts "Season: #{d.season}, Status: cold and desolate."
             print "\n"
@@ -87,7 +87,7 @@ class CLI
         puts "Here is last week's weather for #{@city}, #{@state}:"
         print "\n"
         EarthWeather.all.each do |d|
-            puts "Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
+            puts "Earth date: #{d.date}, Average temp: #{d.avgtemp}°F."
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
             puts "Season: #{d.season}, Status: #{d.status}."
             puts "-----------"
@@ -101,7 +101,7 @@ class CLI
         puts "Here is the latest available Martian weather data:"
         print "\n"
         MartianWeather.all.reverse.each do |d|
-            puts "Sol: #{d.sol}, Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
+            puts "Sol: #{d.sol}, Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F."
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
             puts "Season: #{d.season}, Status: cold and desolate."
             puts "-----------"
@@ -116,7 +116,7 @@ class CLI
         puts "Here is your forecast for #{@city}, #{@state}:"
         print "\n"
         EarthWeather.forecast.each do |d|
-            puts "Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
+            puts "Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F."
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
             puts "Season: #{d.season}, Status: #{d.status}."
             puts "-----------"
@@ -135,7 +135,7 @@ class CLI
         puts "Here is your Martian forecast:"
         print "\n"
         MartianWeather.forecast.each do |d|
-            puts "Sol: #{d.sol}, Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
+            puts "Sol: #{d.sol}, Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F."
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
             puts "Season: #{d.season}, Status: cold and desolate."
             puts "-----------"
