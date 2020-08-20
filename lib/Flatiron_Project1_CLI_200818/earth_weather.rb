@@ -66,7 +66,7 @@ class EarthWeather
         @@forecast = []
         url = "https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{long}&units=imperial&exclude={part}&appid=3ef2f9e27db06e5523669088cdd44570"
         get_data(url)
-        @@api_data[:daily].shift
+        # @@api_data[:daily].shift
         @@api_data[:daily].each do |d|
             o = self.new
             o.date = Time.at(d[:dt]).to_s.split(" ").first
@@ -84,7 +84,11 @@ class EarthWeather
             o.pres = d[:pressure]
             @@forecast << o
         end
-        # binding.pry
+        #api that previously made historical data and current did not include high/low temp
+        #This extracts from this API, puts into current weather data, and removes itself from forecast
+        @@all.first.hightemp = @@forecast.first.hightemp
+        @@all.first.lowtemp = @@forecast.first.lowtemp
+        @@forecast.shift
     end
 
 
@@ -157,7 +161,7 @@ class EarthWeather
     
 end
 
-EarthWeather.create_instances(33.441792, -94.037689, "Fargo", "ND")
+# EarthWeather.create_instances(33.441792, -94.037689, "Fargo", "ND")
 # EarthWeather.create_forecast(33.441792, -94.037689, "Fargo", "ND")
 
 
