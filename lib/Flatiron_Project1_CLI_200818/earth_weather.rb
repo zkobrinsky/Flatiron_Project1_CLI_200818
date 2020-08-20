@@ -158,6 +158,6 @@ class EarthWeather
 end
 
 # EarthWeather.create_instances(33.441792, -94.037689, "Fargo", "ND")
-EarthWeather.create_forecast(33.441792, -94.037689, "Fargo", "ND")
+# EarthWeather.create_forecast(33.441792, -94.037689, "Fargo", "ND")
 
 

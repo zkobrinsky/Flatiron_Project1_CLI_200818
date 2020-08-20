@@ -18,11 +18,11 @@ class CLI
         get_valid_zip
         EarthWeather.create_instances(@lat, @long, @city, @state)
         MartianWeather.create_instances
+        MartianWeather.create_forecast
         compare_current_weather_on_welcome
     end
 
     def main_menu
-        # exit = false
         "\n"
         puts "Please select from the following options:"
         print "\n"
@@ -60,6 +60,34 @@ class CLI
             end
     end
 
+    def earth_archive
+        print "\n"
+        puts "Here is last week's weather for #{@city}, #{@state}:"
+        print "\n"
+        EarthWeather.all.each do |d|
+            puts "Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
+            puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
+            puts "Season: #{d.season}, Status: #{d.status}."
+            puts "-----------"
+        end
+        print "\n"
+        main_menu
+    end
+
+    def martian_archive
+        print "\n"
+        puts "Here is the latest available Martian weather data:"
+        print "\n"
+        MartianWeather.all.reverse.each do |d|
+            puts "Sol: #{d.sol}, Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
+            puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
+            puts "Season: #{d.season}, Status: cold and desolate."
+            puts "-----------"
+        end
+        print "\n"
+        main_menu
+    end
+
     def earth_forecast
         EarthWeather.create_forecast(@lat, @long, @city, @state)
         print "\n"
@@ -72,11 +100,15 @@ class CLI
             puts "-----------"
         end
         print "\n"
-        sleep(5)
         main_menu
     end
 
     def martian_forecast
+        print "\n"
+        print "Transmitting to ancient Martian oracles."
+        10.times {loading_dots}
+        print "\n"
+        puts "Data received."
         print "\n"
         puts "Here is your Martian forecast:"
         print "\n"
@@ -87,7 +119,6 @@ class CLI
             puts "-----------"
         end
         print "\n"
-        sleep(5)
         main_menu
     end
 

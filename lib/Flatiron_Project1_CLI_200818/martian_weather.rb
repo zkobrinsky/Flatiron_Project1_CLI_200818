@@ -75,12 +75,6 @@ class MartianWeather
         end
     end
 
-#     [10] pry(MartianWeather)> Time.now.yday
-# => 233
-# [11] pry(MartianWeather)> Time.parse("2020-08-09T21:00:49Z").yday
-# => 222
-# [12] pry(MartianWeather)> Time.now.yday-Time.parse("2020-08-09T21:00:49Z").yday
-
     def self.sort_by_date
         @@all.sort_by{|i| i.date}
     end
@@ -112,8 +106,8 @@ class MartianWeather
 
 end
 
-MartianWeather.create_instances
-MartianWeather.create_forecast
+# MartianWeather.create_instances
+# MartianWeather.create_forecast
 
 # binding.pry
 
