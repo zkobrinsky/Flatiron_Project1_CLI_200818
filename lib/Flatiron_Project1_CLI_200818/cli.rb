@@ -63,22 +63,22 @@ class CLI
 
     def current_earth
         d = EarthWeather.all.last
+        print "\n"
         puts "Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
             puts "Season: #{d.season}, Status: cold and desolate."
             print "\n"
-            sleep(2)
             main_menu
     end
 
     def current_martian
         sol = MartianWeather.get_current_sol
         d = MartianWeather.all.last
+        print "\n"
         puts "Sol: #{sol}, Earth date: #{Time.now.to_s.split(" ").first}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
             puts "Season: #{d.season}, Status: cold and desolate."
             print "\n"
-            sleep(2)
             main_menu
     end
 

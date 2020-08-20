@@ -69,7 +69,7 @@ class MartianWeather
             o.avgws = d.avgws+(rand(-10..10))
             o.highws = d.highws+(rand(-10..10))
             o.lowws = d.lowws+(rand(-10..10))
-            o.winddir = directions[rand(0..directions.length)]
+            o.winddir = directions[rand(0..directions.length-1)]
             o.pres = (d.pres+(rand(-10..10))).round(2)
             @@forecast << o
         end
@@ -107,7 +107,7 @@ class MartianWeather
 end
 
 # MartianWeather.create_instances
-# MartianWeather.create_forecast
+# 
 
 # binding.pry
 
