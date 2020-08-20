@@ -14,12 +14,12 @@ class CLI
     end
 
     def start
-        # welcome
+        welcome
         get_valid_zip
         EarthWeather.create_instances(@lat, @long, @city, @state)
         MartianWeather.create_instances
         MartianWeather.create_forecast
-        # compare_current_weather_on_welcome
+        compare_current_weather_on_welcome
         main_menu
     end
 
