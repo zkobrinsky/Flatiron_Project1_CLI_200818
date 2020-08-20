@@ -50,15 +50,25 @@ class MartianWeather
 
     def self.create_forecast
         #dependent on .create_instances having been called
+        directions = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W",
+                         "WNW", "NW", "NNW", "N"]
+        
         @@all.each.with_index(1) do |d, i|
             o = self.new
-            o.sol = get_current_sol+i
+            o.sol = (get_current_sol+i).to_s
             o.date = (Time.now+86400*i).to_s.split(" ").first
             o.season = EarthWeather.new.get_season(Time.parse(o.date))
-            binding.pry
-            
-
+            o.avgtemp = d.avgtemp+(rand(-10..10))
+            o.hightemp = d.hightemp+(rand(-10..10))
+            o.lowtemp = d.lowtemp+(rand(-10..10))
+            o.avgws = d.avgws+(rand(-10..10))
+            o.highws = d.highws+(rand(-10..10))
+            o.lowws = d.lowws+(rand(-10..10))
+            o.winddir = directions[rand(0..directions.length)]
+            o.pres = d.pres+(rand(-10..10))
+            @@forecast << o
         end
+        binding.pry
     end
 
 #     [10] pry(MartianWeather)> Time.now.yday
