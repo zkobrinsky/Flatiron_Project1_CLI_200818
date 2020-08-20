@@ -14,11 +14,11 @@ class CLI
     end
 
     def start
-        welcome
-        get_valid_zip
-        EarthWeather.create_instances(@lat, @long, @city, @state)
-        MartianWeather.create_instances
-        compare_current_weather_on_welcome
+        # welcome
+        # get_valid_zip
+        # EarthWeather.create_instances(@lat, @long, @city, @state)
+        # MartianWeather.create_instances
+        # compare_current_weather_on_welcome
         main_menu
     end
 
@@ -45,9 +45,17 @@ class CLI
                 martian_forecast
             when 3
                 earth_forecast
+            when 4
+                martian_archive
+            when 5
+                earth_archive
+            when 6
+                current_martian
+            when 7
+                current_earth
             when 8
             else
-                puts "just a test"
+                puts "Please enter a valid selection."
         end
     end
 
