@@ -64,6 +64,8 @@ class CLI
     def current_earth
         d = EarthWeather.all.first
         print "\n"
+        puts "Current weather for #{@city}, #{@state}:"
+        print "\n"
         puts "Earth date: #{d.date}, Current temp: #{d.avgtemp}°F."
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
             puts "Season: #{d.season}, Status: #{d.status}."
@@ -74,6 +76,8 @@ class CLI
     def current_martian
         sol = MartianWeather.get_current_sol
         d = MartianWeather.all.last
+        print "\n"
+        puts "Current weather on Mars:"
         print "\n"
         puts "Sol: #{sol}, Earth date: #{Time.now.to_s.split(" ").first}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F."
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
@@ -98,7 +102,7 @@ class CLI
 
     def martian_archive
         print "\n"
-        puts "Here is the latest available Martian weather data:"
+        puts "Here is last week's Martian weather:"
         print "\n"
         MartianWeather.all.reverse.each do |d|
             puts "Sol: #{d.sol}, Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F."
