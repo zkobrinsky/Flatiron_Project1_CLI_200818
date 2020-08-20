@@ -37,15 +37,6 @@ class MartianWeather
         end
     end
 
-    def self.get_current_sol
-        today_sol = @@all.last.sol.to_i + (Time.now.yday - Time.parse(@@all.last.date).yday) + 1
-        if today_sol > 668
-            today_sol = (Time.now.yday - Time.parse(@@all.last.date).yday)
-        else
-            today_sol
-        end
-    end
-
     def self.create_forecast
         #dependent on .create_instances having been called
         directions = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W",
@@ -65,6 +56,15 @@ class MartianWeather
             o.winddir = directions[rand(0..directions.length-1)]
             o.pres = (d.pres+(rand(-10..10))).round(2)
             @@forecast << o
+        end
+    end
+
+    def self.get_current_sol
+        today_sol = @@all.last.sol.to_i + (Time.now.yday - Time.parse(@@all.last.date).yday) + 1
+        if today_sol > 668
+            today_sol = (Time.now.yday - Time.parse(@@all.last.date).yday)
+        else
+            today_sol
         end
     end
 

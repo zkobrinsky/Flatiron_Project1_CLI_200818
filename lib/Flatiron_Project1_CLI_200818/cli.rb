@@ -3,6 +3,8 @@ require "./lib/environment"
 class CLI
 
     attr_reader :lat, :long, :city, :state, :zip
+
+    @@mars_forecast_switch = true
     
     def initialize
         start
@@ -127,11 +129,15 @@ class CLI
     end
 
     def martian_forecast
-        print "\n"
-        print "Transmitting to ancient Martian oracles."
-        10.times {loading_dots}
-        print "\n"
-        puts "Data received."
+        if @@mars_forecast_switch == true
+            print "\n"
+            print "Transmitting to ancient Martian oracles."
+            10.times {loading_dots}
+            print "\n"
+            puts "Data received."
+            print "\n"
+            @@mars_forecast_switch = false
+        end
         print "\n"
         puts "Here is your Martian forecast:"
         print "\n"
@@ -208,7 +214,6 @@ class CLI
         mars_winddir = MartianWeather.all.first.winddir
         mars_pres = MartianWeather.all.first.pres
         mars_winsped = MartianWeather.all.first.avgws
-        
         
         print "\n"
         puts "It is #{temp}°F with #{status} in your beautiful city of #{city}."
