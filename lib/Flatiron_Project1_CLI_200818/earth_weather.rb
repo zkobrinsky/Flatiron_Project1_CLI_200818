@@ -9,6 +9,7 @@ class EarthWeather
 
     
     @@all = []
+    @@forecast = []
     @@api_data = nil
     
 
@@ -23,12 +24,14 @@ class EarthWeather
         @@all
     end
 
-    def get_data(url)
+    def self.forecast
+        @@forecast
+    end
+
+    def self.get_data(url)
         uri = URI(url)
         response = Net::HTTP.get(uri)
-        # binding.pry
         @@api_data = JSON.parse(response, symbolize_names: true)
-        # Time.at(@@api_data[:current][:dt]).to_s.split(" ").first # Time.at(1335437221)  returns UTC
     end
 
     def self.create_instances(lat,long, city, state)
@@ -39,7 +42,7 @@ class EarthWeather
             o = self.new
             url = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=#{lat}&lon=#{long}&units=imperial&dt=#{time}&appid=3ef2f9e27db06e5523669088cdd44570"
             #api call defaults units to imperial
-            o.get_data(url)
+            get_data(url)
             o.date = Time.at(@@api_data[:current][:dt]).to_s.split(" ").first
             o.season = o.get_season(Time.at(@@api_data[:current][:dt]))
             o.lat = lat
@@ -52,8 +55,6 @@ class EarthWeather
             o.avgws = @@api_data[:current][:wind_speed].round()
             o.pres = @@api_data[:current][:pressure]
 
-            # binding.pry
-
                 o.save
             i += 1
         end
@@ -61,11 +62,29 @@ class EarthWeather
 
     end
 
-
-
-
-    def self.create_forecast_instances
-
+    def self.create_forecast(lat, long, city, state)
+        @@forecast = []
+        url = "https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{long}&units=imperial&exclude={part}&appid=3ef2f9e27db06e5523669088cdd44570"
+        get_data(url)
+        @@api_data[:daily].shift
+        @@api_data[:daily].each do |d|
+            o = self.new
+            o.date = Time.at(d[:dt]).to_s.split(" ").first
+            o.season = o.get_season(Time.at(d[:dt]))
+            o.lat = lat
+            o.long = long
+            o.city = city
+            o.state = state
+            o.winddir = o.convert_wind_deg_to_dir(d[:wind_deg])
+            o.avgtemp = d[:temp][:day].round()
+            o.hightemp = d[:temp][:max].round()
+            o.lowtemp = d[:temp][:min].round()
+            o.status = d[:weather].first[:description]
+            o.avgws = d[:wind_speed].round()
+            o.pres = d[:pressure]
+            @@forecast << o
+        end
+        # binding.pry
     end
 
 
@@ -138,6 +157,7 @@ class EarthWeather
     
 end
 
-EarthWeather.create_instances(33.441792, -94.037689, "Fargo", "ND")
+# EarthWeather.create_instances(33.441792, -94.037689, "Fargo", "ND")
+EarthWeather.create_forecast(33.441792, -94.037689, "Fargo", "ND")
 
 

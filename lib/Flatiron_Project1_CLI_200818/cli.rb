@@ -14,12 +14,11 @@ class CLI
     end
 
     def start
-        # welcome
-        # get_valid_zip
-        # EarthWeather.create_instances(@lat, @long, @city, @state)
-        # MartianWeather.create_instances
-        # compare_current_weather_on_welcome
-        main_menu
+        welcome
+        get_valid_zip
+        EarthWeather.create_instances(@lat, @long, @city, @state)
+        MartianWeather.create_instances
+        compare_current_weather_on_welcome
     end
 
     def main_menu
@@ -38,34 +37,50 @@ class CLI
 
 
         input = gets.chomp.to_i
-        case input
-            when 1
-                diff_zip
-            when 2
-                martian_forecast
-            when 3
-                earth_forecast
-            when 4
-                martian_archive
-            when 5
-                earth_archive
-            when 6
-                current_martian
-            when 7
-                current_earth
-            when 8
-            else
-                puts "Please enter a valid selection."
+        while input < 1 || input > 8
+            puts "Please enter a valid selection."
+            input = gets.chomp.to_i
         end
+            case input
+                when 1
+                    diff_zip
+                when 2
+                    martian_forecast
+                when 3
+                    earth_forecast
+                when 4
+                    martian_archive
+                when 5
+                    earth_archive
+                when 6
+                    current_martian
+                when 7
+                    current_earth
+                when 8
+            end
     end
 
     def earth_forecast
-
+        EarthWeather.create_forecast(@lat, @long, @city, @state)
+        print "\n"
+        puts "Here is your forecast for #{@city}, #{@state}:"
+        print "\n"
+        EarthWeather.forecast.each do |d|
+            puts "Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
+            puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
+            puts "Season: #{d.season}, Status: #{d.status}."
+            puts "-----------"
+        end
+        print "\n"
+        sleep(5)
+        main_menu
     end
 
     def martian_forecast
         print "\n"
-        MartianWeather.forecast.each.with_index(1) do |d|
+        puts "Here is your Martian forecast:"
+        print "\n"
+        MartianWeather.forecast.each do |d|
             puts "Sol: #{d.sol}, Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F. "
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
             puts "Season: #{d.season}, Status: cold and desolate."
@@ -124,6 +139,7 @@ class CLI
         puts "Cheer up."
         sleep(5)
         print "\n"
+        main_menu
     end
 
     def compare_current_weather
