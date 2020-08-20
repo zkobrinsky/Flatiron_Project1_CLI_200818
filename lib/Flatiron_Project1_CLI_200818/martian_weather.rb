@@ -1,11 +1,4 @@
-require "pry"
-require "net/http"
-require "json"
-require "date"
-require "time"
-require_relative "./earth_weather"
-
-# require "./lib/environment"
+require "./lib/environment"
 
 
 class MartianWeather

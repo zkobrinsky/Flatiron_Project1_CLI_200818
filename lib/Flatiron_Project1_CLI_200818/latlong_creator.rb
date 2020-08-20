@@ -1,6 +1,4 @@
-require "pry"
-require "net/http"
-require "json"
+require "./lib/environment"
 
 class LatLongCreator
 

@@ -1,7 +1,4 @@
-require "pry"
-require "net/http"
-require "json"
-# require 'date'
+require "./lib/environment"
 
 class EarthWeather
     attr_accessor :lat, :long, :date, :season, :avgtemp, :hightemp, :lowtemp, :avgws, :highws, :lowws, :winddir, :city, :state, :status, :pres
@@ -54,11 +51,9 @@ class EarthWeather
             o.status = @@api_data[:current][:weather].first[:description]
             o.avgws = @@api_data[:current][:wind_speed].round()
             o.pres = @@api_data[:current][:pressure]
-
-                o.save
+            o.save
             i += 1
         end
-        # binding.pry
 
     end
 

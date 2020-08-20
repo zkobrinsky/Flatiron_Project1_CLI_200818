@@ -1,9 +1,4 @@
-require "pry"
-require "net/http"
-require "json"
-require_relative "./latlong_creator"
-require_relative "./martian_weather"
-require_relative "./earth_weather"
+require "./lib/environment"
 
 class CLI
 
@@ -14,7 +9,6 @@ class CLI
     end
 
     def start
-        
         welcome
         get_valid_zip
         EarthWeather.create_instances(@lat, @long, @city, @state)
@@ -199,7 +193,6 @@ class CLI
         puts "Cheer up."
         sleep(5)
         print "\n"
-        # main_menu
     end
 
     def compare_current_weather
@@ -290,5 +283,3 @@ class CLI
     end
 
 end
-
-CLI.new

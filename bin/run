@@ -2,3 +2,5 @@
 
 require './lib/environment'
 
+CLI.new.start
+
