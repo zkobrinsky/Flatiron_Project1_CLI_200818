@@ -88,7 +88,7 @@ class CLI
         print "\n"
         puts "Here is last week's weather for #{@city}, #{@state}:"
         print "\n"
-        EarthWeather.all.each do |d|
+        EarthWeather.all[1..-1].each do |d|
             puts "Earth date: #{d.date}, Average temp: #{d.avgtemp}°F."
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
             puts "Season: #{d.season}, Status: #{d.status}."

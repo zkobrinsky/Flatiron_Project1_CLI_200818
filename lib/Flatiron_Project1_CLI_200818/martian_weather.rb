@@ -61,8 +61,9 @@ class MartianWeather
 
     def self.get_current_sol
         today_sol = @@all.last.sol.to_i + (Time.now.yday - Time.parse(@@all.last.date).yday) + 1
+        # adjusts for Martian new year window:
         if today_sol > 668
-            today_sol = (Time.now.yday - Time.parse(@@all.last.date).yday)
+            today_sol = today_sol - 668
         else
             today_sol
         end
