@@ -28,4 +28,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 Everyone interacting in the FlatironProject1CLI200818 project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/Flatiron_Project1_CLI_200818/blob/master/CODE_OF_CONDUCT.md).
 
 ## Acknowledgements
-The #get_season method was repurposed from this code by [stbnrivas](https://stackoverflow.com/questions/15414831/ruby-determine-season-fall-winter-spring-or-summer), which converts dates into seasons.
+The #get_season method was repurposed from [this code by stbnrivas](https://stackoverflow.com/questions/15414831/ruby-determine-season-fall-winter-spring-or-summer), which converts dates into seasons.
