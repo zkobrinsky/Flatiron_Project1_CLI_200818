@@ -129,8 +129,6 @@ class EarthWeather
 
 
     def get_season(date)
-        #found at https://stackoverflow.com/questions/15414831/ruby-determine-season-fall-winter-spring-or-summer
-        #code by stbnrivas
         year_day = date.yday().to_i
         year = date.year.to_i
         is_leap_year = year % 4 == 0 && year % 100 != 0 || year % 400 == 0
