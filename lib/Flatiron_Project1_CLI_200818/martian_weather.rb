@@ -99,10 +99,4 @@ class MartianWeather
 
 end
 
-# MartianWeather.create_instances
-# 
-
-# binding.pry
-
-
 

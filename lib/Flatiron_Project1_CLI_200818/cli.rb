@@ -22,7 +22,6 @@ class CLI
     end
 
     def main_menu
-        "\n"
         puts "Please select from the following options:"
         print "\n"
         puts "1. Change zip code"
@@ -158,27 +157,17 @@ class CLI
     end
 
     def compare_current_weather_on_welcome
-        temp = EarthWeather.all.first.avgtemp
-        status = EarthWeather.all.first.status
-        winddir = EarthWeather.all.first.winddir
-        pres = EarthWeather.all.first.pres
-        winsped = EarthWeather.all.first.avgws
-        city = EarthWeather.all.first.city
-        mars_avgtemp = MartianWeather.all.first.avgtemp
-        mars_hitemp = MartianWeather.all.first.hightemp
-        mars_lotemp = MartianWeather.all.first.lowtemp
-        mars_winddir = MartianWeather.all.first.winddir
-        mars_pres = MartianWeather.all.first.pres
-        mars_winsped = MartianWeather.all.first.avgws
-        
+        e = EarthWeather.all.first
+        m = MartianWeather.all.first
+
         print "\n"
-        puts "It is #{temp}°F with #{status} in your beautiful city of #{city}."
-        puts "The wind is #{winsped}mph from the #{winddir}, with a lovely atmospheric pressure of #{pres} hPa."
+        puts "It is #{e.avgtemp}°F with #{e.status} in your beautiful city of #{e.city}."
+        puts "The wind is #{e.avgws}mph from the #{e.winddir}, with a lovely atmospheric pressure of #{e.pres} hPa."
         sleep(7)
         print "\n"
         print "\n"
-        puts "On Mars it is #{mars_avgtemp}°F with a high of #{mars_hitemp}°F and a low of #{mars_lotemp}°F."
-        puts "The wind is #{mars_winsped}mph from the #{mars_winddir}, with an atmospheric pressure of #{mars_pres} hPa."
+        puts "On Mars it is #{m.avgtemp}°F with a high of #{m.hightemp}°F and a low of #{m.lowtemp}°F."
+        puts "The wind is #{m.avgws}mph from the #{m.winddir}, with an atmospheric pressure of #{m.pres} hPa."
         print "\n"
         print "\n"
         sleep(7)
@@ -202,25 +191,15 @@ class CLI
     end
 
     def compare_current_weather
-        temp = EarthWeather.all.first.avgtemp
-        status = EarthWeather.all.first.status
-        winddir = EarthWeather.all.first.winddir
-        pres = EarthWeather.all.first.pres
-        winsped = EarthWeather.all.first.avgws
-        city = EarthWeather.all.first.city
-        mars_avgtemp = MartianWeather.all.first.avgtemp
-        mars_hitemp = MartianWeather.all.first.hightemp
-        mars_lotemp = MartianWeather.all.first.lowtemp
-        mars_winddir = MartianWeather.all.first.winddir
-        mars_pres = MartianWeather.all.first.pres
-        mars_winsped = MartianWeather.all.first.avgws
-        
+        e = EarthWeather.all.first
+        m = MartianWeather.all.first
+
         print "\n"
-        puts "It is #{temp}°F with #{status} in your beautiful city of #{city}."
-        puts "The wind is #{winsped}mph from the #{winddir}, with a lovely atmospheric pressure of #{pres} hPa."
+        puts "It is #{e.avgtemp}°F with #{e.status} in your beautiful city of #{e.city}."
+        puts "The wind is #{e.avgws}mph from the #{e.winddir}, with a lovely atmospheric pressure of #{e.pres} hPa."
         print "\n"
-        puts "On Mars it is #{mars_avgtemp}°F with a high of #{mars_hitemp}°F and a low of #{mars_lotemp}°F."
-        puts "The wind is #{mars_winsped}mph from the #{mars_winddir}, with an atmospheric pressure of #{mars_pres} hPa."
+        puts "On Mars it is #{m.avgtemp}°F with a high of #{m.hightemp}°F and a low of #{m.lowtemp}°F."
+        puts "The wind is #{m.avgws}mph from the #{m.winddir}, with an atmospheric pressure of #{m.pres} hPa."
         print "\n"
         sleep(7)
         puts "Where you are is beautiful."

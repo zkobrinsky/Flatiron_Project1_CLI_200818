@@ -1,7 +1,7 @@
 require "./lib/environment"
 
 class EarthWeather
-    attr_accessor :lat, :long, :date, :season, :avgtemp, :hightemp, :lowtemp, :avgws, :highws, :lowws, :winddir, :city, :state, :status, :pres
+    attr_accessor :lat, :long, :city, :state, :date, :season, :avgtemp, :hightemp, :lowtemp, :avgws, :highws, :lowws, :winddir, :status, :pres
     attr_reader :api_data
 
     
@@ -61,7 +61,6 @@ class EarthWeather
         @@forecast = []
         url = "https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{long}&units=imperial&exclude={part}&appid=3ef2f9e27db06e5523669088cdd44570"
         get_data(url)
-        # @@api_data[:daily].shift
         @@api_data[:daily].each do |d|
             o = self.new
             o.date = Time.at(d[:dt]).to_s.split(" ").first
@@ -80,37 +79,13 @@ class EarthWeather
             @@forecast << o
         end
         #api that previously made historical data and current did not include high/low temp
-        #This extracts from this API, puts into current weather data, and removes itself from forecast
+        #This extracts from this API, puts into current weather data, and removes itself from forecast:
         @@all.first.hightemp = @@forecast.first.hightemp
         @@all.first.lowtemp = @@forecast.first.lowtemp
         @@forecast.shift
     end
 
-
-    def get_season(date)
-        #found at https://stackoverflow.com/questions/15414831/ruby-determine-season-fall-winter-spring-or-summer
-        #code by stbnrivas
-        year_day = date.yday().to_i
-        year = date.year.to_i
-        is_leap_year = year % 4 == 0 && year % 100 != 0 || year % 400 == 0
-        if is_leap_year and year_day > 60
-          # if is leap year and date > 28 february 
-          year_day = year_day - 1
-        end
-            
-        if year_day >= 355 or year_day < 81
-          result = "winter"
-        elsif year_day >= 81 and year_day < 173
-          result = "spring"
-        elsif year_day >= 173 and year_day < 266
-          result = "summer"
-        elsif year_day >= 266 and year_day < 355
-         result = "autumn"
-        end
-        return result
-      end
-
-      def convert_wind_deg_to_dir(degrees)
+    def convert_wind_deg_to_dir(degrees)
         d = 22.5
         winddir = ""
         case
@@ -153,10 +128,30 @@ class EarthWeather
       end
 
 
-    
+    def get_season(date)
+        #found at https://stackoverflow.com/questions/15414831/ruby-determine-season-fall-winter-spring-or-summer
+        #code by stbnrivas
+        year_day = date.yday().to_i
+        year = date.year.to_i
+        is_leap_year = year % 4 == 0 && year % 100 != 0 || year % 400 == 0
+        if is_leap_year and year_day > 60
+          # if is leap year and date > 28 february 
+          year_day = year_day - 1
+        end
+            
+        if year_day >= 355 or year_day < 81
+          result = "winter"
+        elsif year_day >= 81 and year_day < 173
+          result = "spring"
+        elsif year_day >= 173 and year_day < 266
+          result = "summer"
+        elsif year_day >= 266 and year_day < 355
+         result = "autumn"
+        end
+        return result
+      end
+
 end
 
-# EarthWeather.create_instances(33.441792, -94.037689, "Fargo", "ND")
-# EarthWeather.create_forecast(33.441792, -94.037689, "Fargo", "ND")
 
 
