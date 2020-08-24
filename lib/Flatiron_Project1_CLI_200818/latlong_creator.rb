@@ -1,5 +1,3 @@
-require "./lib/environment"
-
 class LatLongCreator
 
     attr_accessor :zip, :latitude, :longitude, :city, :state

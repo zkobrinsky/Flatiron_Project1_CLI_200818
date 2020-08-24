@@ -1,5 +1,3 @@
-require "./lib/environment"
-
 class CLI
 
     attr_reader :lat, :long, :city, :state, :zip

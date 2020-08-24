@@ -1,6 +1,3 @@
-require "./lib/environment"
-
-
 class MartianWeather
     attr_accessor :sol, :date, :season, :avgtemp, :hightemp, :lowtemp, :avgws, :highws, :lowws, :winddir, :pres
 

@@ -1,5 +1,3 @@
-require "./lib/environment"
-
 class EarthWeather
     attr_accessor :lat, :long, :city, :state, :date, :season, :avgtemp, :hightemp, :lowtemp, :avgws, :highws, :lowws, :winddir, :status, :pres, :zip
     attr_reader :api_data
