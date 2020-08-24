@@ -34,7 +34,7 @@ class EarthWeather
     def self.create_instances(lat,long, city, state, zip)
         @@all = [] #only storing one zip at a time, clears all
         i = 0
-        6.times do
+        6.times do #calls API 5 times for historic data, & 1 time for current weather
             time = (Time.now - (86400*i)-1000).to_i #converts to unix #-1000 to account for difference in clocks, can't be in future
             o = self.new
             url = "http://api.openweathermap.org/data/2.5/onecall/timemachine?lat=#{lat}&lon=#{long}&units=imperial&dt=#{time}&appid=3ef2f9e27db06e5523669088cdd44570"
