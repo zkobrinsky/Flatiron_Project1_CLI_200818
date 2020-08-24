@@ -21,6 +21,124 @@ class CLI
         main_menu
     end
 
+
+    
+    def loading_dots
+        sleep(0.3)
+        print "." 
+    end
+
+
+    def welcome
+        puts "Welcome to the Martian Weather Service."
+        sleep(0.6)
+        7.times {loading_dots}
+        sleep(0.3)
+        print "Preparing quantum confibulators."
+        sleep(0.8)
+        print "\n"
+        7.times {loading_dots}
+        sleep(0.3)
+        print "Charging atomic capacitors."
+        sleep(1)
+        print "\n"
+        7.times {loading_dots}
+        sleep(0.3)
+        print "Transmitting to Mars."
+        sleep(0.9)
+        print "\n"
+        7.times {loading_dots}
+        sleep(0.3)
+        puts "Extraterrestrial transmission received."
+        print "\n"
+        sleep(1)
+    end
+    
+    def get_latlong(zip)
+        latlong = LatLongCreator.create_latlong_from_zip(zip)
+        if latlong != nil
+            @lat = latlong[0]
+            @long = latlong[1]
+            @city = latlong[2]
+            @state = latlong[3]
+            @zip = zip
+        else
+            latlong = nil
+        end
+    end
+        
+    def get_valid_zip
+        puts "Please enter your zip code."
+        input = gets.chomp.to_i
+        until get_latlong(input) != nil && input.to_s.length == 5
+            puts "Please enter a valid U.S. zip code."
+            print "\n"
+            input = gets.chomp.to_i
+        end
+    end
+
+    def diff_zip
+        get_valid_zip
+        EarthWeather.create_instances(@lat, @long, @city, @state, @zip)
+        compare_current_weather
+    end
+
+    def compare_current_weather_on_welcome
+        e = EarthWeather.all.first
+        m = MartianWeather.all.first
+
+        print "\n"
+        puts "It is #{e.avgtemp}°F with #{e.status} in your beautiful city of #{e.city}."
+        puts "The wind is #{e.avgws}mph from the #{e.winddir}, with a lovely atmospheric pressure of #{e.pres} hPa."
+        sleep(7)
+        print "\n"
+        print "\n"
+        puts "On Mars it is #{m.avgtemp}°F with a high of #{m.hightemp}°F and a low of #{m.lowtemp}°F."
+        puts "The wind is #{m.avgws}mph from the #{m.winddir}, with an atmospheric pressure of #{m.pres} hPa."
+        print "\n"
+        print "\n"
+        sleep(7)
+        puts "It is cold."
+        sleep(2)
+        puts "It is desolate."
+        sleep(2)
+        puts "It is lonely."
+        sleep(2)
+        print "\n"
+        5.times {loading_dots}
+        sleep(2)
+        print "\n"
+        print "\n"
+        puts "Where you are is beautiful."
+        print "\n"
+        sleep(2)
+        puts "Cheer up."
+        sleep(5)
+        print "\n"
+    end
+
+    def compare_current_weather
+        e = EarthWeather.all.first
+        m = MartianWeather.all.first
+
+        print "\n"
+        puts "It is #{e.avgtemp}°F with #{e.status} in your beautiful city of #{e.city}."
+        puts "The wind is #{e.avgws}mph from the #{e.winddir}, with a lovely atmospheric pressure of #{e.pres} hPa."
+        print "\n"
+        puts "On Mars it is #{m.avgtemp}°F with a high of #{m.hightemp}°F and a low of #{m.lowtemp}°F."
+        puts "The wind is #{m.avgws}mph from the #{m.winddir}, with an atmospheric pressure of #{m.pres} hPa."
+        print "\n"
+        sleep(7)
+        puts "Where you are is beautiful."
+        print "\n"
+        sleep(2)
+        puts "Cheer up."
+        print "\n"
+        sleep(5)
+        main_menu
+        
+    end
+
     def main_menu
         puts "Please select from the following options:"
         print "\n"
@@ -148,122 +266,6 @@ class CLI
         end
         print "\n"
         main_menu
-    end
-
-    def diff_zip
-        get_valid_zip
-        EarthWeather.create_instances(@lat, @long, @city, @state, @zip)
-        compare_current_weather
-    end
-
-    def compare_current_weather_on_welcome
-        e = EarthWeather.all.first
-        m = MartianWeather.all.first
-
-        print "\n"
-        puts "It is #{e.avgtemp}°F with #{e.status} in your beautiful city of #{e.city}."
-        puts "The wind is #{e.avgws}mph from the #{e.winddir}, with a lovely atmospheric pressure of #{e.pres} hPa."
-        sleep(7)
-        print "\n"
-        print "\n"
-        puts "On Mars it is #{m.avgtemp}°F with a high of #{m.hightemp}°F and a low of #{m.lowtemp}°F."
-        puts "The wind is #{m.avgws}mph from the #{m.winddir}, with an atmospheric pressure of #{m.pres} hPa."
-        print "\n"
-        print "\n"
-        sleep(7)
-        puts "It is cold."
-        sleep(2)
-        puts "It is desolate."
-        sleep(2)
-        puts "It is lonely."
-        sleep(2)
-        print "\n"
-        5.times {loading_dots}
-        sleep(2)
-        print "\n"
-        print "\n"
-        puts "Where you are is beautiful."
-        print "\n"
-        sleep(2)
-        puts "Cheer up."
-        sleep(5)
-        print "\n"
-    end
-
-    def compare_current_weather
-        e = EarthWeather.all.first
-        m = MartianWeather.all.first
-
-        print "\n"
-        puts "It is #{e.avgtemp}°F with #{e.status} in your beautiful city of #{e.city}."
-        puts "The wind is #{e.avgws}mph from the #{e.winddir}, with a lovely atmospheric pressure of #{e.pres} hPa."
-        print "\n"
-        puts "On Mars it is #{m.avgtemp}°F with a high of #{m.hightemp}°F and a low of #{m.lowtemp}°F."
-        puts "The wind is #{m.avgws}mph from the #{m.winddir}, with an atmospheric pressure of #{m.pres} hPa."
-        print "\n"
-        sleep(7)
-        puts "Where you are is beautiful."
-        print "\n"
-        sleep(2)
-        puts "Cheer up."
-        print "\n"
-        sleep(5)
-        main_menu
-        
-    end
-
-
-    def welcome
-        puts "Welcome to the Martian Weather Service."
-        sleep(0.6)
-        7.times {loading_dots}
-        sleep(0.3)
-        print "Preparing quantum confibulators."
-        sleep(0.8)
-        print "\n"
-        7.times {loading_dots}
-        sleep(0.3)
-        print "Charging atomic capacitors."
-        sleep(1)
-        print "\n"
-        7.times {loading_dots}
-        sleep(0.3)
-        print "Transmitting to Mars."
-        sleep(0.9)
-        print "\n"
-        7.times {loading_dots}
-        sleep(0.3)
-        puts "Extraterrestrial transmission received."
-        print "\n"
-        sleep(1)
-    end
-
-    def loading_dots
-        sleep(0.3)
-        print "." 
-    end
-
-    def get_latlong(zip)
-        latlong = LatLongCreator.create_latlong_from_zip(zip)
-        if latlong != nil
-            @lat = latlong[0]
-            @long = latlong[1]
-            @city = latlong[2]
-            @state = latlong[3]
-            @zip = zip
-        else
-            latlong = nil
-        end
-    end
-    
-    def get_valid_zip
-        puts "Please enter your zip code."
-        input = gets.chomp.to_i
-        until get_latlong(input) != nil && input.to_s.length == 5
-            puts "Please enter a valid U.S. zip code."
-            print "\n"
-            input = gets.chomp.to_i
-        end
     end
 
 end
