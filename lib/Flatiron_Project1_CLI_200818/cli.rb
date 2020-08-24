@@ -13,10 +13,10 @@ class CLI
     def start
         welcome
         get_valid_zip
-        EarthWeather.create_instances(@lat, @long, @city, @state)
+        EarthWeather.create_instances(@lat, @long, @city, @state, @zip)
         MartianWeather.create_instances
         MartianWeather.create_forecast
-        EarthWeather.create_forecast(@lat, @long, @city, @state)
+        EarthWeather.create_forecast(@lat, @long, @city, @state, @zip)
         compare_current_weather_on_welcome
         main_menu
     end
@@ -113,7 +113,7 @@ class CLI
     end
 
     def earth_forecast
-        EarthWeather.create_forecast(@lat, @long, @city, @state)
+        EarthWeather.create_forecast(@lat, @long, @city, @state, @zip)
         print "\n"
         puts "Here is your forecast for #{@city}, #{@state}:"
         print "\n"
@@ -152,7 +152,7 @@ class CLI
 
     def diff_zip
         get_valid_zip
-        EarthWeather.create_instances(@lat, @long, @city, @state)
+        EarthWeather.create_instances(@lat, @long, @city, @state, @zip)
         compare_current_weather
     end
 

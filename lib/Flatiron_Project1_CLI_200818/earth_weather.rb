@@ -1,7 +1,7 @@
 require "./lib/environment"
 
 class EarthWeather
-    attr_accessor :lat, :long, :city, :state, :date, :season, :avgtemp, :hightemp, :lowtemp, :avgws, :highws, :lowws, :winddir, :status, :pres
+    attr_accessor :lat, :long, :city, :state, :date, :season, :avgtemp, :hightemp, :lowtemp, :avgws, :highws, :lowws, :winddir, :status, :pres, :zip
     attr_reader :api_data
 
     
@@ -31,7 +31,7 @@ class EarthWeather
         @@api_data = JSON.parse(response, symbolize_names: true)
     end
 
-    def self.create_instances(lat,long, city, state)
+    def self.create_instances(lat,long, city, state, zip)
         @@all = [] #only storing one zip at a time, clears all
         i = 0
         6.times do
@@ -46,6 +46,7 @@ class EarthWeather
             o.long = long
             o.city = city
             o.state = state
+            o.zip = zip
             o.winddir = o.convert_wind_deg_to_dir(@@api_data[:current][:wind_deg])
             o.avgtemp = @@api_data[:current][:temp].round()
             o.status = @@api_data[:current][:weather].first[:description]
@@ -57,7 +58,7 @@ class EarthWeather
 
     end
 
-    def self.create_forecast(lat, long, city, state)
+    def self.create_forecast(lat, long, city, state, zip)
         @@forecast = []
         url = "https://api.openweathermap.org/data/2.5/onecall?lat=#{lat}&lon=#{long}&units=imperial&exclude={part}&appid=3ef2f9e27db06e5523669088cdd44570"
         get_data(url)
@@ -69,6 +70,7 @@ class EarthWeather
             o.long = long
             o.city = city
             o.state = state
+            o.zip = zip
             o.winddir = o.convert_wind_deg_to_dir(d[:wind_deg])
             o.avgtemp = d[:temp][:day].round()
             o.hightemp = d[:temp][:max].round()
@@ -76,6 +78,7 @@ class EarthWeather
             o.status = d[:weather].first[:description]
             o.avgws = d[:wind_speed].round()
             o.pres = d[:pressure]
+            
             @@forecast << o
         end
         #api that previously made historical data and current did not include high/low temp
