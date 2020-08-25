@@ -87,12 +87,12 @@ class CLI
 
         print "\n"
         puts "It is #{e.avgtemp}°F with #{e.status} in your beautiful city of #{e.city}."
-        puts "The wind is #{e.avgws}mph from the #{e.winddir}, with a lovely atmospheric pressure of #{e.pres} hPa."
+        puts "The wind is #{e.avgws}mph to the #{e.winddir}, with a lovely atmospheric pressure of #{e.pres} hPa."
         sleep(7)
         print "\n"
         print "\n"
         puts "On Mars it is #{m.avgtemp}°F with a high of #{m.hightemp}°F and a low of #{m.lowtemp}°F."
-        puts "The wind is #{m.avgws}mph from the #{m.winddir}, with an atmospheric pressure of #{m.pres} hPa."
+        puts "The wind is #{m.avgws}mph to the #{m.winddir}, with an atmospheric pressure of #{m.pres} hPa."
         print "\n"
         print "\n"
         sleep(7)
