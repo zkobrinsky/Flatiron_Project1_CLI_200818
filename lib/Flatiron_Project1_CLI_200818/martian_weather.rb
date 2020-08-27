@@ -18,7 +18,7 @@ class MartianWeather
                 if s[0] != :validity_checks
                     o = self.new
                     o.sol = s[0].to_s
-                    o.date = s[1][:Last_UTC].split("T").first
+                    o.date = s[1][:First_UTC].split("T").first
                     o.season = s[1][:Season]
                     o.avgtemp = o.c_to_f(s[1][:AT][:av]).round()
                     o.hightemp = o.c_to_f(s[1][:AT][:mx]).round()
