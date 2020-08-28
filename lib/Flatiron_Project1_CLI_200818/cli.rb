@@ -5,7 +5,6 @@ class CLI
     @@mars_forecast_switch = true
     
     def initialize
-        start
     end
 
     def start
@@ -16,6 +15,15 @@ class CLI
         MartianWeather.create_forecast
         EarthWeather.create_forecast(@lat, @long, @city, @state, @zip)
         compare_current_weather_on_welcome
+        main_menu
+    end
+
+    def debug
+        get_valid_zip
+        EarthWeather.create_instances(@lat, @long, @city, @state, @zip)
+        MartianWeather.create_instances
+        MartianWeather.create_forecast
+        EarthWeather.create_forecast(@lat, @long, @city, @state, @zip)
         main_menu
     end
 

@@ -80,7 +80,7 @@ class MartianWeather
             o.highws = d.highws+(rand(-10..10))
             o.lowws = d.lowws+(rand(-10..10))
             o.winddir = @@directions[rand(0..@@directions.length-1)]
-            o.pres = (d.pres+(rand(1..10))).round(2)
+            o.pres = (d.pres+(rand(1..5))).round(2)
             @@forecast << o
     end
 

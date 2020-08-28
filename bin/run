@@ -3,4 +3,5 @@
 require './lib/environment'
 
 CLI.new.start
+# CLI.new.debug
 
