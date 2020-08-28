@@ -9,11 +9,11 @@ class LatLongCreator
         response = Net::HTTP.get(uri)
         @@api_data = JSON.parse(response, symbolize_names: true)
         unless @@api_data[:nhits] == 0
-            @latitude = @@api_data[:records].first[:fields][:latitude]
-            @longitude = @@api_data[:records].first[:fields][:longitude]
-            @city = @@api_data[:records].first[:fields][:city]
-            @state = @@api_data[:records].first[:fields][:state]
-            latlong = [@latitude, @longitude, @city, @state]
+            latitude = @@api_data[:records].first[:fields][:latitude]
+            longitude = @@api_data[:records].first[:fields][:longitude]
+            city = @@api_data[:records].first[:fields][:city]
+            state = @@api_data[:records].first[:fields][:state]
+            latlong = [latitude, longitude, city, state]
         end
     end
 end

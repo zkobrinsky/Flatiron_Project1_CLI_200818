@@ -12,8 +12,8 @@ class CLI
         get_valid_zip
         EarthWeather.create_instances(@lat, @long, @city, @state, @zip)
         MartianWeather.create_instances
-        MartianWeather.create_forecast
-        EarthWeather.create_forecast(@lat, @long, @city, @state, @zip)
+        # MartianWeather.create_forecast
+        # EarthWeather.create_forecast(@lat, @long, @city, @state, @zip)
         compare_current_weather_on_welcome
         main_menu
     end
