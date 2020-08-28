@@ -34,6 +34,20 @@ class MartianWeather
         end
     end
 
+    # def save_i_to_db(o)
+    #     sql = <<-SQL
+    #         INSERT INTO martian_weather (
+    #             id, avgtemp, date, hightemp, highws, lowtemp, lowws, pres, season, sol, winddir
+    #         )
+    #         VALUES (
+    #             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+    #         )
+    #     SQL
+
+    #     DB[:conn].execute(sql, o.id, o.avgtemp, o.date, o.hightemp, o.highws, o.lowtemp, o.lowws, o.pres, o.season, o.sol, o.winddir)
+    #     DB[:conn].commit
+    # end
+
     def self.create_forecast
         #dependent on .create_instances having been called
         @@directions = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W",
@@ -41,6 +55,7 @@ class MartianWeather
         if @@all.length == 7
             @@all.each.with_index(1) do |d, i|
                 self.populate_forecast(d, i)
+                # save_i_to_db(d)
             end
         else
             i = 1
