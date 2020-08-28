@@ -36,10 +36,24 @@ class MartianWeather
 
     def self.create_forecast
         #dependent on .create_instances having been called
-        directions = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W",
+        @@directions = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W",
                          "WNW", "NW", "NNW", "N"]
-        
-        @@all.each.with_index(1) do |d, i|
+        if @@all.length == 7
+            @@all.each.with_index(1) do |d, i|
+                self.populate_forecast(d, i)
+            end
+        else
+            i = 1
+            d = @@all.last
+
+            7.times do 
+                self.populate_forecast(d,i)
+                i += 1
+            end
+        end
+    end
+
+    def self.populate_forecast(d, i)
             o = self.new
             o.sol = (get_current_sol+i).to_s
             o.date = (Time.now+86400*i).to_s.split(" ").first
@@ -50,10 +64,9 @@ class MartianWeather
             o.avgws = d.avgws+(rand(-10..10))
             o.highws = d.highws+(rand(-10..10))
             o.lowws = d.lowws+(rand(-10..10))
-            o.winddir = directions[rand(0..directions.length-1)]
-            o.pres = (d.pres+(rand(-10..10))).round(2)
+            o.winddir = @@directions[rand(0..@@directions.length-1)]
+            o.pres = (d.pres+(rand(1..10))).round(2)
             @@forecast << o
-        end
     end
 
     def self.get_current_sol

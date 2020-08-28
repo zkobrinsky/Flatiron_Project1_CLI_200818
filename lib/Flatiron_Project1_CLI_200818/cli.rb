@@ -9,13 +9,13 @@ class CLI
     end
 
     def start
-        welcome
+        # welcome
         get_valid_zip
         EarthWeather.create_instances(@lat, @long, @city, @state, @zip)
         MartianWeather.create_instances
         MartianWeather.create_forecast
         EarthWeather.create_forecast(@lat, @long, @city, @state, @zip)
-        compare_current_weather_on_welcome
+        # compare_current_weather_on_welcome
         main_menu
     end
 
@@ -216,7 +216,7 @@ class CLI
 
     def martian_archive
         print "\n"
-        puts "Here is last week's Martian weather:"
+        puts "Here is the most recent Martian weather available:"
         print "\n"
         MartianWeather.all.reverse.each do |d|
             puts "Sol: #{d.sol}, Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F."
