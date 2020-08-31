@@ -1,10 +1,7 @@
 class LatLongCreator
 
-    attr_accessor :zip, :latitude, :longitude, :city, :state
-
     def self.create_latlong_from_zip(zip)
-        @zip = zip
-        url = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=#{@zip}&facet=state&facet=timezone&facet=dst"
+        url = "https://public.opendatasoft.com/api/records/1.0/search/?dataset=us-zip-code-latitude-and-longitude&q=#{zip}&facet=state&facet=timezone&facet=dst"
         uri = URI(url)
         response = Net::HTTP.get(uri)
         @@api_data = JSON.parse(response, symbolize_names: true)
