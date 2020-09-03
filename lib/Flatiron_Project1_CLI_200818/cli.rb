@@ -19,7 +19,11 @@ class CLI
     end
 
     def debug
-        get_valid_zip
+        @zip = 11218
+        @lat = 40.644552
+        @long = -73.97595
+        @city = "Brooklyn"
+        @state = "NY"
         EarthWeather.create_instances(@lat, @long, @city, @state, @zip)
         MartianWeather.create_instances
         MartianWeather.create_forecast

@@ -13,40 +13,45 @@ class MartianWeather
     end
 
     def self.create_instances
-        @@api_data.each do |s| 
-            if s[0] != :sol_keys
-                if s[0] != :validity_checks
-                    o = self.new
-                    o.sol = s[0].to_s
-                    o.date = s[1][:First_UTC].split("T").first
-                    o.season = s[1][:Season]
-                    o.avgtemp = o.c_to_f(s[1][:AT][:av]).round()
-                    o.hightemp = o.c_to_f(s[1][:AT][:mx]).round()
-                    o.lowtemp = o.c_to_f(s[1][:AT][:mn]).round()
-                    o.avgws = o.mps_to_mph(s[1][:HWS][:av]).round()
-                    o.highws = o.mps_to_mph(s[1][:HWS][:mx]).round()
-                    o.lowws = o.mps_to_mph(s[1][:HWS][:mn]).round()
-                    o.winddir = s[1][:WD][:most_common][:compass_point]
-                    o.pres = o.pa_to_hpa(s[1][:PRE][:av]).round(2)
-                    o.save
+        if @@api_data == !nil
+            @@api_data.each do |s| 
+                if s[0] != :sol_keys
+                    if s[0] != :validity_checks
+                        o = self.new
+                        o.sol = s[0].to_s
+                        o.date = s[1][:First_UTC].split("T").first
+                        o.season = s[1][:Season]
+                        o.avgtemp = o.c_to_f(s[1][:AT][:av]).round()
+                        o.hightemp = o.c_to_f(s[1][:AT][:mx]).round()
+                        o.lowtemp = o.c_to_f(s[1][:AT][:mn]).round()
+                        o.avgws = o.mps_to_mph(s[1][:HWS][:av]).round()
+                        o.highws = o.mps_to_mph(s[1][:HWS][:mx]).round()
+                        o.lowws = o.mps_to_mph(s[1][:HWS][:mn]).round()
+                        o.winddir = s[1][:WD][:most_common][:compass_point]
+                        o.pres = o.pa_to_hpa(s[1][:PRE][:av]).round(2)
+                        o.save
+                    end
                 end
+            end
+        else
+            Get_DB_Data.get_martian_data.each do |s|
+                o = self.new
+                o.sol = s[:sol]
+                o.date = s[:date]
+                o.season = s[:season]
+                o.avgtemp = s[:avgtemp]
+                o.hightemp = s[:hightemp]
+                o.lowtemp = s[:lowtemp]
+                o.avgws = s[:avgws]
+                o.highws = s[:highws]
+                o.lowws = s[:lowws]
+                o.winddir = s[:winddir]
+                o.pres = s[:pres]
+                o.save
             end
         end
     end
 
-    # def save_i_to_db(o)
-    #     sql = <<-SQL
-    #         INSERT INTO martian_weather (
-    #             id, avgtemp, date, hightemp, highws, lowtemp, lowws, pres, season, sol, winddir
-    #         )
-    #         VALUES (
-    #             ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
-    #         )
-    #     SQL
-
-    #     DB[:conn].execute(sql, o.id, o.avgtemp, o.date, o.hightemp, o.highws, o.lowtemp, o.lowws, o.pres, o.season, o.sol, o.winddir)
-    #     DB[:conn].commit
-    # end
 
     def self.create_forecast
         #dependent on .create_instances having been called
@@ -69,6 +74,7 @@ class MartianWeather
     end
 
     def self.populate_forecast(d, i)
+        binding.pry
             o = self.new
             o.sol = (get_current_sol+i).to_s
             o.date = (Time.now+86400*i).to_s.split(" ").first
