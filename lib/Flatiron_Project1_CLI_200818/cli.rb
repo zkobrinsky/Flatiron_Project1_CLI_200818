@@ -3,9 +3,6 @@ class CLI
     attr_reader :lat, :long, :city, :state, :zip
 
     @@mars_forecast_switch = true
-    
-    def initialize
-    end
 
     def start
         welcome
@@ -81,8 +78,8 @@ class CLI
         puts "Please enter your zip code."
         input = gets.chomp.to_i
         until get_latlong(input) != nil && input.to_s.length == 5
-            puts "Please enter a valid U.S. zip code."
             print "\n"
+            puts "Please enter a valid U.S. zip code."
             input = gets.chomp.to_i
         end
     end
@@ -133,10 +130,10 @@ class CLI
 
         print "\n"
         puts "It is #{e.avgtemp}°F with #{e.status} in your beautiful city of #{e.city}."
-        puts "The wind is #{e.avgws}mph from the #{e.winddir}, with a lovely atmospheric pressure of #{e.pres} hPa."
+        puts "The wind is #{e.avgws}mph to the #{e.winddir}, with a lovely atmospheric pressure of #{e.pres} hPa."
         print "\n"
         puts "On Mars it is #{m.avgtemp}°F with a high of #{m.hightemp}°F and a low of #{m.lowtemp}°F."
-        puts "The wind is #{m.avgws}mph from the #{m.winddir}, with an atmospheric pressure of #{m.pres} hPa."
+        puts "The wind is #{m.avgws}mph to the #{m.winddir}, with an atmospheric pressure of #{m.pres} hPa."
         print "\n"
         sleep(7)
         puts "Where you are is beautiful."

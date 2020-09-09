@@ -13,7 +13,8 @@ class MartianWeather
     end
 
     def self.create_instances
-        if @@api_data == !nil
+        
+        if @@api_data != nil
             @@api_data.each do |s| 
                 if s[0] != :sol_keys
                     if s[0] != :validity_checks
@@ -25,10 +26,12 @@ class MartianWeather
                         o.hightemp = o.c_to_f(s[1][:AT][:mx]).round()
                         o.lowtemp = o.c_to_f(s[1][:AT][:mn]).round()
                         o.avgws = o.mps_to_mph(s[1][:HWS][:av]).round()
-                        # o.highws = o.mps_to_mph(s[1][:HWS][:mx]).round()
-                        # o.lowws = o.mps_to_mph(s[1][:HWS][:mn]).round()
+                        o.highws = o.mps_to_mph(s[1][:HWS][:mx]).round()
+                        o.lowws = o.mps_to_mph(s[1][:HWS][:mn]).round()
                         o.winddir = s[1][:WD][:most_common][:compass_point]
                         o.pres = o.pa_to_hpa(s[1][:PRE][:av]).round(2)
+                        # binding.pry
+                        # Get_DB_Data.add_values_to_db(o.date)
                         o.save
                     end
                 end
@@ -43,8 +46,8 @@ class MartianWeather
                 o.hightemp = s[:hightemp]
                 o.lowtemp = s[:lowtemp]
                 o.avgws = s[:avgws]
-                # o.highws = s[:highws]
-                # o.lowws = s[:lowws]
+                o.highws = s[:highws]
+                o.lowws = s[:lowws]
                 o.winddir = s[:winddir]
                 o.pres = s[:pres]
                 o.save
@@ -81,8 +84,6 @@ class MartianWeather
             o.hightemp = d.hightemp+(rand(-10..10))
             o.lowtemp = d.lowtemp+(rand(-10..10))
             o.avgws = d.avgws+(rand(-10..10))
-            # o.highws = d.highws+(rand(-10..10))
-            # o.lowws = d.lowws+(rand(-10..10))
             # o.winddir = @@directions[rand(0..@@directions.length-1)]
             o.winddir = @@all.last.winddir
             o.pres = (d.pres+(rand(1..5))).round(2)
