@@ -22,16 +22,17 @@ class MartianWeather
                         o.sol = s[0].to_s
                         o.date = s[1][:First_UTC].split("T").first
                         o.season = s[1][:Season]
-                        o.avgtemp = o.c_to_f(s[1][:AT][:av]).round()
-                        o.hightemp = o.c_to_f(s[1][:AT][:mx]).round()
-                        o.lowtemp = o.c_to_f(s[1][:AT][:mn]).round()
-                        o.avgws = o.mps_to_mph(s[1][:HWS][:av]).round()
-                        o.highws = o.mps_to_mph(s[1][:HWS][:mx]).round()
-                        o.lowws = o.mps_to_mph(s[1][:HWS][:mn]).round()
+                        o.avgtemp = c_to_f(s[1][:AT][:av]).round()
+                        o.hightemp = c_to_f(s[1][:AT][:mx]).round()
+                        o.lowtemp = c_to_f(s[1][:AT][:mn]).round()
+                        o.avgws = mps_to_mph(s[1][:HWS][:av]).round()
+                        o.highws = mps_to_mph(s[1][:HWS][:mx]).round()
+                        o.lowws = mps_to_mph(s[1][:HWS][:mn]).round()
                         o.winddir = s[1][:WD][:most_common][:compass_point]
-                        o.pres = o.pa_to_hpa(s[1][:PRE][:av]).round(2)
+                        o.pres = pa_to_hpa(s[1][:PRE][:av]).round(2)
                         o.status = "cold and desolate"
-                        Get_DB_Data.add_values_to_db(o.avgtemp, o.date, o.hightemp, o.lowtemp, o.pres, o.season, o.sol, o.winddir, o.avgws, o.status, o.date)
+                        # binding.pry
+                        Get_DB_Data.add_values_to_db(o.avgtemp, o.date, o.hightemp, o.lowtemp, o.pres, o.season, o.sol, o.winddir, o.avgws, o.highws, o.lowws, o.status, o.date)
                         o.save
                     end
                 end
@@ -118,15 +119,15 @@ class MartianWeather
         @@forecast
     end
 
-    def pa_to_hpa(pa)
+    def self.pa_to_hpa(pa)
         pa/100
     end
 
-    def c_to_f(c)
+    def self.c_to_f(c)
         (c*9/5)+32
     end
 
-    def mps_to_mph(m)
+    def self.mps_to_mph(m)
         m*2.237
     end
 

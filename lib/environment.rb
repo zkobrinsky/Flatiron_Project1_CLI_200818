@@ -22,13 +22,15 @@ sql = <<-SQL
 	"avgtemp"	INTEGER,
 	"date"	TEXT,
 	"hightemp"	INTEGER,
-	"highws"	INTEGER,
 	"lowtemp"	INTEGER,
-	"lowws"	INTEGER,
 	"pres"	REAL,
 	"season"	TEXT,
 	"sol"	TEXT,
 	"winddir"	TEXT,
+	"avgws" INTEGER,
+	"highws"	INTEGER,
+	"lowws"	INTEGER,
+	"status" TEXT,
 	PRIMARY KEY("id")
 )
 SQL

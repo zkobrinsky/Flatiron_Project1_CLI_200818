@@ -14,15 +14,15 @@ class Get_DB_Data
         weather_data
     end
 
-    def self.add_values_to_db(avgtemp, date, hightemp, lowtemp, pres, season, sol, winddir, avgws, status, date_to_ignore)
+    def self.add_values_to_db(avgtemp, date, hightemp, lowtemp, pres, season, sol, winddir, avgws, highws, lowws, status, date_to_ignore)
         sql = <<-SQL
             INSERT INTO martian_weather 
-            (avgtemp, date, hightemp, lowtemp, pres, season, sol, winddir, avgws, status)
-            SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
+            (avgtemp, date, hightemp, lowtemp, pres, season, sol, winddir, avgws, highws, lowws, status)
+            SELECT ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?
             WHERE NOT EXISTS (SELECT * FROM martian_weather WHERE date = ?)
         SQL
 
-        DB[:conn].execute(sql, avgtemp, date, hightemp, lowtemp, pres, season, sol, winddir, avgws, status, date_to_ignore)
+        DB[:conn].execute(sql, avgtemp, date, hightemp, lowtemp, pres, season, sol, winddir, avgws, highws, lowws, status, date_to_ignore)
         
     end
 
