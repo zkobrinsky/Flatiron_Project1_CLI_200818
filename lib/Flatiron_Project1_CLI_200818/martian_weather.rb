@@ -30,8 +30,8 @@ class MartianWeather
                         o.lowws = o.mps_to_mph(s[1][:HWS][:mn]).round()
                         o.winddir = s[1][:WD][:most_common][:compass_point]
                         o.pres = o.pa_to_hpa(s[1][:PRE][:av]).round(2)
-                        # binding.pry
-                        # Get_DB_Data.add_values_to_db(o.date)
+                        binding.pry
+                        Get_DB_Data.add_values_to_db(o.date)
                         o.save
                     end
                 end

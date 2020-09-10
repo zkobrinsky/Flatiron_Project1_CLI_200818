@@ -2,6 +2,6 @@
 
 require './lib/environment'
 
-CLI.new.start
-# CLI.new.debug
+# CLI.new.start
+CLI.new.debug
 
