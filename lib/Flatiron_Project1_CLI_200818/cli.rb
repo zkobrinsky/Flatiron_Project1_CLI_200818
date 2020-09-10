@@ -204,7 +204,7 @@ class CLI
         print "\n"
         puts "Sol: #{sol}, Earth date: #{Time.now.to_s.split(" ").first}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F."
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
-            puts "Season: #{d.season}, Status: cold and desolate."
+            puts "Season: #{d.season}, Status: #{d.status}."
             print "\n"
             main_menu
     end
@@ -230,7 +230,7 @@ class CLI
         MartianWeather.all.reverse.each do |d|
             puts "Sol: #{d.sol}, Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F."
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
-            puts "Season: #{d.season}, Status: cold and desolate."
+            puts "Season: #{d.season}, Status: #{d.status}."
             puts "-----------"
         end
         print "\n"
@@ -268,7 +268,7 @@ class CLI
         MartianWeather.forecast.each do |d|
             puts "Sol: #{d.sol}, Earth date: #{d.date}, Average temp: #{d.avgtemp}°F, High temp: #{d.hightemp}°F, Low temp: #{d.lowtemp}°F."
             puts "Average wind speed: #{d.avgws}mph, Wind direction: #{d.winddir}, Atmospheric pressure: #{d.pres}hPa."
-            puts "Season: #{d.season}, Status: cold and desolate."
+            puts "Season: #{d.season}, Status: #{d.status}."
             puts "-----------"
         end
         print "\n"

@@ -1,5 +1,5 @@
 class MartianWeather
-    attr_accessor :sol, :date, :season, :avgtemp, :hightemp, :lowtemp, :avgws, :highws, :lowws, :winddir, :pres
+    attr_accessor :sol, :date, :season, :avgtemp, :hightemp, :lowtemp, :avgws, :highws, :lowws, :winddir, :pres, :status
 
     url = "https://api.nasa.gov/insight_weather/?api_key=dbgntr9dVwt1ol3Wdw5D8d7BTdEk5d208LElZEkA&feedtype=json&ver=1.0"
     uri = URI(url)
@@ -30,8 +30,8 @@ class MartianWeather
                         o.lowws = o.mps_to_mph(s[1][:HWS][:mn]).round()
                         o.winddir = s[1][:WD][:most_common][:compass_point]
                         o.pres = o.pa_to_hpa(s[1][:PRE][:av]).round(2)
-                        binding.pry
-                        Get_DB_Data.add_values_to_db(o.date)
+                        o.status = "cold and desolate"
+                        Get_DB_Data.add_values_to_db(o.avgtemp, o.date, o.hightemp, o.lowtemp, o.pres, o.season, o.sol, o.winddir, o.avgws, o.status, o.date)
                         o.save
                     end
                 end
@@ -50,6 +50,7 @@ class MartianWeather
                 o.lowws = s[:lowws]
                 o.winddir = s[:winddir]
                 o.pres = s[:pres]
+                o.status = s[:status]
                 o.save
             end
         end
@@ -87,6 +88,7 @@ class MartianWeather
             # o.winddir = @@directions[rand(0..@@directions.length-1)]
             o.winddir = @@all.last.winddir
             o.pres = (d.pres+(rand(1..5))).round(2)
+            o.status = "cold and desolate"
             @@forecast << o
     end
 
