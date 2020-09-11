@@ -2,5 +2,4 @@
 
 require './lib/environment'
 
-CLI.new.start
-
+MartianWeather.create_instances
