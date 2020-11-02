@@ -3,3 +3,4 @@
 require './lib/environment'
 
 MartianWeather.create_instances
+puts 'Successfully downloaded Martian data'
