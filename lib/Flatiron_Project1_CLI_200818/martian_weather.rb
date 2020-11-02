@@ -28,7 +28,7 @@ class MartianWeather
                         o.avgws = s[1][:HWS] ? mps_to_mph(s[1][:HWS][:av]).round() : ""
                         o.highws = s[1][:HWS] ? mps_to_mph(s[1][:HWS][:mx]).round() : ""
                         o.lowws = s[1][:HWS] ? mps_to_mph(s[1][:HWS][:mn]).round() : ""
-                        o.winddir = s[1][:WD][:most_common] ? s[1][:WD][:most_common][:compass_point] : ""
+                        o.winddir = s[1][:WD] ? s[1][:WD][:most_common][:compass_point] : ""
                         o.pres = s[1][:PRE] ? pa_to_hpa(s[1][:PRE][:av]).round(2) : ""
                         o.status = "cold and desolate"
                         Get_DB_Data.add_values_to_db(o.avgtemp, o.date, o.hightemp, o.lowtemp, o.pres, o.season, o.sol, o.winddir, o.avgws, o.highws, o.lowws, o.status, o.date)
