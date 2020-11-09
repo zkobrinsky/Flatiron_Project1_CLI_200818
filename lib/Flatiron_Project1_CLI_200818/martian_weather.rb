@@ -28,7 +28,7 @@ class MartianWeather
                         o.avgws = s[1][:HWS] ? mps_to_mph(s[1][:HWS][:av]).round() : ""
                         o.highws = s[1][:HWS] ? mps_to_mph(s[1][:HWS][:mx]).round() : ""
                         o.lowws = s[1][:HWS] ? mps_to_mph(s[1][:HWS][:mn]).round() : ""
-                        o.winddir = s[1][:WD] ? s[1][:WD][:most_common][:compass_point] : ""
+                        o.winddir = s[1][:WD][:most_common] ? s[1][:WD][:most_common][:compass_point] : ""
                         o.pres = s[1][:PRE] ? pa_to_hpa(s[1][:PRE][:av]).round(2) : ""
                         o.status = "cold and desolate"
                         Get_DB_Data.add_values_to_db(o.avgtemp, o.date, o.hightemp, o.lowtemp, o.pres, o.season, o.sol, o.winddir, o.avgws, o.highws, o.lowws, o.status, o.date)
@@ -81,13 +81,13 @@ class MartianWeather
             o.sol = (get_current_sol+i).to_s
             o.date = (Time.now+86400*i).to_s.split(" ").first
             o.season = @@all.last.season
-            o.avgtemp = d.avgtemp+(rand(-10..10))
-            o.hightemp = d.hightemp+(rand(-10..10))
-            o.lowtemp = d.lowtemp+(rand(-10..10))
-            o.avgws = d.avgws+(rand(-10..10))
+            o.avgtemp = d.avgtemp.to_i+(rand(-10..10))
+            o.hightemp = d.hightemp.to_i+(rand(-10..10))
+            o.lowtemp = d.lowtemp.to_i+(rand(-10..10))
+            o.avgws = d.avgws.to_i+(rand(-10..10))
             # o.winddir = @@directions[rand(0..@@directions.length-1)]
-            o.winddir = @@all.last.winddir
-            o.pres = (d.pres+(rand(1..5))).round(2)
+            o.winddir = @@all.last.winddir != "" ? @@all.last.winddir : @@all[-2].winddir
+            o.pres = (d.pres.to_i+(rand(1..5))).round(2)
             o.status = "cold and desolate"
             @@forecast << o
     end
@@ -95,11 +95,11 @@ class MartianWeather
     def self.get_current_sol
         today_sol = @@all.last.sol.to_i + (Time.now.yday - Time.parse(@@all.last.date).yday) + 1
         # adjusts for Martian new year window:
-        if today_sol > 668
-            today_sol = today_sol - 668
-        else
-            today_sol
-        end
+        # if today_sol > 668
+        #     today_sol = today_sol - 668
+        # else
+        #     today_sol
+        # end
     end
 
     def self.sort_by_date
