@@ -37,6 +37,7 @@ class CLI
 
 
     def welcome
+        3.times {print "\n"}
         puts "Welcome to the Martian Weather Service."
         sleep(0.6)
         7.times {loading_dots}
